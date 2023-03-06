@@ -16,6 +16,9 @@ Including another URLconf
 
 from django.urls import path
 
+from calculator.views import products_count
+
 urlpatterns = [
     # здесь зарегистрируйте вашу view-функцию
+    path('<dish>/', products_count, name = 'omlet')
 ]
