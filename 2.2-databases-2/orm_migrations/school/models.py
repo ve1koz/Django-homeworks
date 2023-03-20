@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class Teacher(models.Model):
     name = models.CharField(max_length=30, verbose_name='Имя')
     subject = models.CharField(max_length=10, verbose_name='Предмет')
@@ -12,10 +11,9 @@ class Teacher(models.Model):
     def __str__(self):
         return self.name
 
-
 class Student(models.Model):
     name = models.CharField(max_length=30, verbose_name='Имя')
-    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
+    # teachers = models.ManyToManyField(Teacher, related_name='students')
     group = models.CharField(max_length=10, verbose_name='Класс')
 
     class Meta:
@@ -24,3 +22,12 @@ class Student(models.Model):
 
     def __str__(self):
         return self.name
+
+class StudentTeacher(models.Model):
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name='stud_teach')
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='stud_teach')
+
+    class Meta:
+        verbose_name = 'Студент-Учитель'
+        verbose_name_plural = 'Студент-Учителя'
+
